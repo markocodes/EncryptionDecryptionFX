@@ -23,14 +23,18 @@ public class Controller {
      * Send file for encryption or decryption.
      * @param operation encryption or decryption
      */
-    public void executeOperation(String operation, String contents){
+    public String executeOperation(String operation, String contents){
         // E: Encrypt
+        String contentsToReturn = null;
         if(operation.equals("E")){
             try {
                 FileWriter myWriter = new FileWriter("src/encrypted_data.txt");
-                myWriter.write((new Encryption(contents)).encrypt());
+                Encryption encryption = new Encryption(contents);
+                String encryptedContents = encryption.encrypt();
+                myWriter.write(encryptedContents);
                 myWriter.close();
                 System.out.println("Successfully wrote to the file.");
+                contentsToReturn = encryptedContents;
             } catch (IOException e) {
                 System.out.println("An error occurred.");
                 e.printStackTrace();
@@ -40,14 +44,17 @@ public class Controller {
         else if(operation.equals("D")){
             try {
                 FileWriter myWriter = new FileWriter("src/decrypted_data.txt");
-                myWriter.write((new Decryption(contents)).decrypt());
+                String decryptedContents = new Decryption(contents).decrypt();
+                myWriter.write(decryptedContents);
                 myWriter.close();
                 System.out.println("Successfully wrote to the file.");
+                contentsToReturn = decryptedContents;
             } catch (IOException e) {
                 System.out.println("An error occurred.");
                 e.printStackTrace();
             }
         }
+        return contentsToReturn;
     }
 
 

@@ -6,6 +6,7 @@ import java.util.Random;
 
 public class Encryption {
     private String contents;
+    private String encryptedContentsGlobal;
     private int key;
     private HashMap<Character, Character> equivalencies;
 
@@ -54,6 +55,7 @@ public class Encryption {
             }
 
         }
+        encryptedContentsGlobal = encryptedContents.toString();
         return encryptedContents.toString();
     }
 
